@@ -55,14 +55,12 @@ public class player_rotate : MonoBehaviour
             // ベクトルの外積を利用して回転方向を判別
             if (crossProduct.y > 0)
             {
-                Debug.Log("右回転値: " + rightRotationValue);
                 rightRotationValue += Time.deltaTime * 50;
                 stopRotationValue = 0;
                 // 右回転時の処理をここに追加
             }
             else if (crossProduct.y < 0)
             {
-                Debug.Log("左回転値: " + leftRotationValue);
                 leftRotationValue += Time.deltaTime * 50;
                 stopRotationValue = 0;
                 // 左回転時の処理をここに追加
@@ -70,7 +68,6 @@ public class player_rotate : MonoBehaviour
         }
         else
         {
-            Debug.Log("静止値" + stopRotationValue);
             stopRotationValue++;
             // 静止時の処理をここに追加
         }
@@ -78,7 +75,7 @@ public class player_rotate : MonoBehaviour
         if (rightRotationValue >= 85f && time < 7)
         {
             // Y軸に対して、指定した角度ずつ回転させている。
-            gameObject.transform.Rotate(new Vector3(0, rotateY, 0) * Time.deltaTime / (playercatch.Checkthrow / 5 + 1));
+            gameObject.transform.Rotate(new Vector3(0, rotateY, 0) * Time.deltaTime / ((float)playercatch.Checkthrow / 4 + 1));
             time += Time.deltaTime;
             leftRotationValue = 0;
             autoRotation = true;
@@ -86,7 +83,7 @@ public class player_rotate : MonoBehaviour
         else if (leftRotationValue >= 85f && time < 7)
         {
             // Y軸に対して、指定した角度ずつ回転させている。
-            gameObject.transform.Rotate(new Vector3(0, -rotateY, 0) * Time.deltaTime / (playercatch.Checkthrow / 5 + 1));
+            gameObject.transform.Rotate(new Vector3(0, -rotateY, 0) * Time.deltaTime / ((float)playercatch.Checkthrow /  + 1));
             time += Time.deltaTime;
             rightRotationValue = 0;
             autoRotation = true;
@@ -97,11 +94,11 @@ public class player_rotate : MonoBehaviour
             autoRotation = false;
         }
 
-        if(rightRotationValue > 10)
+        if(rightRotationValue > 20)
         {
             leftRotationValue = 0;
         }
-        else if (leftRotationValue > 10)
+        else if (leftRotationValue > 20)
         {
             rightRotationValue = 0;
         }

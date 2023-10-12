@@ -5,6 +5,7 @@ using UnityEngine;
 public class player_move : MonoBehaviour
 {
     public float speed = 5f; //プレイヤーの動くスピード
+    public float jumpForce = 10f; //ジャンプの力
 
     private Vector3 Player_pos; //プレイヤーのポジション
     private float x; //x方向のImputの値
@@ -21,11 +22,10 @@ public class player_move : MonoBehaviour
 
     void FixedUpdate()
     {
-
         x = Input.GetAxis("Horizontal"); //x方向のInputの値を取得
         z = Input.GetAxis("Vertical"); //z方向のInputの値を取得
 
-        rigd.velocity = new Vector3(x * speed, 0, z * speed); //プレイヤーのRigidbodyに対してInputにspeedを掛けた値で更新し移動
+        rigd.velocity = new Vector3(x * speed, rigd.velocity.y, z * speed); //プレイヤーのRigidbodyに対してInputにspeedを掛けた値で更新し移動
 
         Player_pos = transform.position; //プレイヤーの位置を更新
     }

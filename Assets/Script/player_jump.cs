@@ -5,7 +5,7 @@ using UnityEngine;
 public class player_jump : MonoBehaviour
 {
     //ジャンプの速度を設定
-    private const float _velocity = 5.0f;
+    public float _velocity = 5.0f;
 
     private Rigidbody _rigidbody;
     //着地状態を管理

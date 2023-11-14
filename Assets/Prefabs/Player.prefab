@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7002758546200047790}
   - component: {fileID: 7002758546200047789}
   - component: {fileID: 1725105922}
+  - component: {fileID: 1725105923}
+  - component: {fileID: 1725105915}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -97,7 +99,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7002758546200047780}
   m_Material: {fileID: 13400000, guid: 86cdc73d00a96934dadc52758132ccf6, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.6566925, y: 1.4867028, z: 1.4746035}
@@ -116,7 +118,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &7002758546200047790
 MonoBehaviour:
@@ -161,9 +163,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwForce: 40
-  grabDistance: 10
+  grabDistance: 2
+  randomAngle: 20
   Checkthrow: 0
   bullet1: {fileID: 7261089469757631616, guid: 461b57c3d37d1da42bc371d53081ac31, type: 3}
+  clip_catch: {fileID: 8300000, guid: 8b39d525a8b3b1b4b8364e541e712f23, type: 3}
+  clip_throw: {fileID: 8300000, guid: e33267ea0cebe87468a6b82e1b142f55, type: 3}
+--- !u!136 &1725105923
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7002758546200047780}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.8347702
+  m_Height: 3.2147486
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.6610259, z: 0}
+--- !u!114 &1725105915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7002758546200047780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de8cba29f3b3ad4cb0492027dd67210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _velocity: 6
+  clip: {fileID: 8300000, guid: a589a15c8dc94f943913a0b19852da63, type: 3}
 --- !u!1001 &8687531990530213817
 PrefabInstance:
   m_ObjectHideFlags: 0

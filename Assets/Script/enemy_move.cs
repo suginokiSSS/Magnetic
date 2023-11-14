@@ -63,6 +63,7 @@ public class enemy_move : MonoBehaviour
         if (distance < moveDistance && distance > stopDistance)
         {
             canmove = true;
+            moveDistance = 50f;
             // ƒvƒŒƒCƒ„[‚Ì•ûŒü‚ğŒü‚­
             Vector3 direction = target.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(direction);
@@ -77,7 +78,7 @@ public class enemy_move : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("catch"))
         {

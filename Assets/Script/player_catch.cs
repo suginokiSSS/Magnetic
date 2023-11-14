@@ -4,39 +4,47 @@ using UnityEngine;
 
 public class player_catch : MonoBehaviour
 {
-    public float throwForce = 15f;  // 投げる力
+    public float throwForce = 15f; 
 
-    public float grabDistance = 5f; // 掴む距離
+    public float grabDistance = 5f;
 
-    private Rigidbody[] objectToThrow; // 投げるオブジェクトのRigidbody
+    public float randomAngle = 45f;
 
-    public int Checkthrow = 0;
+    private Rigidbody[] objectToThrow;
 
-    [SerializeField]
-    [Tooltip("弾1")]
-    private GameObject bullet1;
+    [HideInInspector] public int Checkthrow = 0;
 
     player_rotate playerrotate;
+
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip_catch;
+    [SerializeField]
+    AudioClip clip_throw;
 
     void Start()
     {
         playerrotate = GetComponent<player_rotate>();
-        objectToThrow = new Rigidbody[30];
+        objectToThrow = new Rigidbody[50];
+        GameObject obj = GameObject.Find("SoundManager");
+        soundManager = obj.GetComponent<SoundManager>();
     }
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.E) && playerrotate.autoRotation == true)
+        if (Input.GetKey(KeyCode.E) || Input.GetKey("joystick button 4"))
         {
-            Time.timeScale = 0.5f;
+            if (playerrotate.autoRotation == true)
+            {
+                Time.timeScale = 0.5f;
+            }        
         }
         else
         {
             Time.timeScale = 1.0f;
         }
 
-        //手の位置から掴む距離以内にあるtagが"throw"のオブジェクトを取得
-        if (objectToThrow.Length == 0)
+        if (Checkthrow == 0)
         {
             Collider[] colliders = Physics.OverlapSphere(this.transform.position, grabDistance);
             foreach (Collider collider in colliders)
@@ -44,82 +52,113 @@ public class player_catch : MonoBehaviour
                 if (collider.tag == "throw")
                 {
                     objectToThrow[Checkthrow] = collider.attachedRigidbody;
+                    objectToThrow[Checkthrow].GetComponent<Rigidbody>().isKinematic = true;
                     Checkthrow++;
                     collider.tag = "catch";
-                    return;
-                }
-            }
-        }
-        else
-        {
-            Collider[] colliders = Physics.OverlapSphere(this.transform.position, grabDistance);
-            foreach (Collider collider in colliders)
-            {
-                if (collider.tag == "throw")
-                {
-                    objectToThrow[Checkthrow] = collider.attachedRigidbody;
-                    Checkthrow++;
-                    collider.tag = "catch";
+                 
+                    soundManager.PlaySe(clip_catch);
                     return;
                 }
             }
         }
 
-        if (playerrotate.autoRotation == true)
+        if (objectToThrow[49] == null && Checkthrow > 0)
         {
-            // Kボタン押すとオブジェクトを投げる
-            if (Input.GetKey("joystick button 0") || Input.GetKey(KeyCode.K))
+            for (int i = 0; i < Checkthrow; i++)
             {
-                if (objectToThrow[0] != null)
+                Collider[] colliders = Physics.OverlapSphere(objectToThrow[i].transform.position, grabDistance);
+                foreach (Collider collider in colliders)
                 {
-                    GameObject newBullet = Instantiate(bullet1, this.transform.position, transform.rotation);
-                    // 投げる方向を計算
-                    Vector3 throwDirection = transform.forward;
-                    throwDirection.y = 0f;
-                    // 手の位置を基準に、オブジェクトを投げる
-                    newBullet.GetComponent<Rigidbody>().AddForce(throwDirection * throwForce, ForceMode.Impulse);
-
-                    // 弾が生成された瞬間のスケールを保存
-                    Vector3 initialScale = newBullet.transform.localScale;
-
-                    // 弾が生成されてからの経過時間を計測
-                    float elapsedTime = 0f;
-
-                    // 弾が生成されてから3秒間は大きくなる
-                    while (elapsedTime < 3f)
+                    if (collider.tag == "throw")
                     {
-                        // 時間経過を加算
-                        elapsedTime += Time.deltaTime;
-
-                        // 弾のスケールを変更して大きくする
-                        newBullet.transform.localScale = initialScale * (1 + Checkthrow);
+                        objectToThrow[Checkthrow] = collider.attachedRigidbody;
+                        objectToThrow[Checkthrow].GetComponent<Rigidbody>().isKinematic = true;
+                        objectToThrow[Checkthrow].gameObject.transform.parent = this.gameObject.transform;
+                        Checkthrow++;
+                        collider.tag = "catch";
+                        playerrotate.Maxrotate += 50f;
+                        soundManager.PlaySe(clip_catch);
+                        return;
                     }
-
-                        Destroy(newBullet, 1f);
-                }
-
-                if (Checkthrow >= 1)
-                {
-                    for (int i = 0; i < Checkthrow; i++)
-                    {
-                        Destroy(objectToThrow[i].gameObject);
-                        objectToThrow[i] = null;
-                    }
-                    Checkthrow = 0;
                 }
             }
 
         }
 
-        // オブジェクトをつかんでいる間は、手の位置に合わせる
         for (int i = 0; i < Checkthrow; i++)
         {
-            if (objectToThrow[i])
+            if (objectToThrow[i].tag == "stop")
             {
-                Vector3 throwDirection = this.transform.forward;
-                throwDirection.y = 0f;
-                objectToThrow[i].transform.position = this.transform.position + throwDirection * (i + 1) * 2;
+                for (int j = i; j < Checkthrow; j++)
+                {
+                    GameObject newMono = Instantiate(objectToThrow[j].gameObject, objectToThrow[j].position, objectToThrow[j].rotation);
+                    Vector3 startthrowDirection = (this.transform.position - objectToThrow[j].position);
+                    startthrowDirection.y = 0f;
+                    newMono.GetComponent<Rigidbody>().AddForce(startthrowDirection * 3, ForceMode.Force);
+                    Destroy(objectToThrow[j].gameObject);
+                }
+                for (int j = Checkthrow; j > i; j--)
+                {
+                    Checkthrow--;
+                    objectToThrow[j] = null;
+                }
+                return;
             }
+        }
+
+        if(playerrotate.autoRotation == false)
+        {
+            for (int i = 0; i < Checkthrow; i++)
+            {
+                GameObject newMono = Instantiate(objectToThrow[i].gameObject, objectToThrow[i].position, objectToThrow[i].rotation);
+                Vector3 startthrowDirection = (this.transform.position - objectToThrow[i].position);
+                startthrowDirection.y = 0f;
+                newMono.GetComponent<Rigidbody>().AddForce(startthrowDirection * 3, ForceMode.Force);
+                Destroy(objectToThrow[i].gameObject);
+            }
+            for (int i = Checkthrow; i > 0; i--)
+            {
+                Checkthrow--;
+                objectToThrow[i] = null;
+            }
+            return;
+        }
+
+        if (playerrotate.autoRotation == true && objectToThrow[0] != null)
+        {
+            if (Input.GetKey("joystick button 0") || Input.GetKey(KeyCode.K))
+            {              
+                for (int i = 0; i < Checkthrow; i++)
+                {
+                    // ランダムな角度を生成し、それに基づいて方向を計算
+                    float randomYaw = Random.Range(-randomAngle, randomAngle);
+                    float randomPitch = Random.Range(-randomAngle, randomAngle);
+                    Quaternion randomRotation = Quaternion.Euler(randomPitch, randomYaw, 0f);
+
+                    objectToThrow[i].GetComponent<Rigidbody>().isKinematic = false;
+                    GameObject newMono = Instantiate(objectToThrow[i].gameObject, objectToThrow[i].position, objectToThrow[i].rotation);
+                    Vector3 throwDirection = transform.forward;
+                    throwDirection.y = 0f;
+                    newMono.tag = "fly";
+                    newMono.GetComponent<Rigidbody>().AddForce(throwDirection * throwForce, ForceMode.Impulse);
+                    Destroy(objectToThrow[i].gameObject);
+                    Destroy(newMono.gameObject, 1f);
+                }
+                for (int i = Checkthrow; i > 0; i--)
+                {
+                    Checkthrow--;
+                    objectToThrow[i] = null;
+                }
+                soundManager.PlaySe(clip_throw);
+                return;             
+            }
+
+        }
+        if (objectToThrow[0])
+        {
+            Vector3 throwDirection = this.transform.forward;
+            throwDirection.y = 0f;
+            objectToThrow[0].transform.position = this.transform.position + throwDirection * (1 + 1);
         }
     }
 }

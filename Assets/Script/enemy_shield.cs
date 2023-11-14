@@ -5,6 +5,7 @@ using UnityEngine;
 public class enemy_shield : MonoBehaviour
 {
     enemy_backmove enemyscript;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -129,5 +129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mono:
   - {fileID: 2479557798086506746, guid: a179498c7218f024f92465c10c41f166, type: 3}
-  - {fileID: 8971789976125377283, guid: 97414091941273a42afc8c7aab676a52, type: 3}
   - {fileID: 7960678746269240063, guid: 311266b45e2c6b74d8389a3abefd2eab, type: 3}
+  - {fileID: 8971789976125377283, guid: 97414091941273a42afc8c7aab676a52, type: 3}
+  clip: {fileID: 8300000, guid: 15dce4fb258af4a44b7fea2247b3a64b, type: 3}

@@ -11,10 +11,15 @@ public class player_life : MonoBehaviour
 
     public GameObject breakEffect;
 
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip_damage;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject obj = GameObject.Find("SoundManager");
+        soundManager = obj.GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -36,6 +41,7 @@ public class player_life : MonoBehaviour
         {
             life--;
             time = 0f;
+            soundManager.PlaySe(clip_damage);
         }
     }
 
@@ -45,6 +51,7 @@ public class player_life : MonoBehaviour
         {
             life--;
             time = 0f;
+            soundManager.PlaySe(clip_damage);
         }
     }
 

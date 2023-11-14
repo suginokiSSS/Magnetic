@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Staminagauge : MonoBehaviour
 {
     private float RotationValue = 0f;
-    private float time;
 
     public Image gaugeImage;
 
@@ -24,19 +23,12 @@ public class Staminagauge : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        RotationValue = playerscript.rightRotationValue + playerscript.leftRotationValue;
+        RotationValue = playerscript.Maxrotate;
 
-        if (RotationValue < 90f)
+        if (RotationValue < 500f)
         {
             gaugeImage.color = new Color(1f, 127f / 255f, 39f / 255f);
-            time = 7;
-            gaugeImage.fillAmount = RotationValue / 90;
-        }
-        else
-        {
-            gaugeImage.color = Color.green;
-            time -= Time.deltaTime;
-            gaugeImage.fillAmount = time / 7;
+            gaugeImage.fillAmount = RotationValue / 500;
         }
     }
 }

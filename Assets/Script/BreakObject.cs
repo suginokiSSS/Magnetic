@@ -5,29 +5,34 @@ using UnityEngine;
 public class BreakObject : MonoBehaviour
 {
     public GameObject[] mono;
+    private bool only = true;
+
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip;
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject obj = GameObject.Find("SoundManager");
+        soundManager = obj.GetComponent<SoundManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision other)
     {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("catch") || other.gameObject.CompareTag("fly"))
+        if (only)
         {
-            int rnd = Random.Range(1, 3);
-            for (int i = 0; i < rnd; i++)
+            if (other.gameObject.CompareTag("catch") || other.gameObject.CompareTag("fly") || other.gameObject.CompareTag("Player"))
             {
-                int rndmono = Random.Range(0, 3);
-                GameObject newMono = Instantiate(mono[rndmono], transform.position, transform.rotation);
+                int rnd = Random.Range(1, 3);
+                for (int i = 0; i < rnd; i++)
+                {
+                    int rndmono = Random.Range(0, 3);
+                    GameObject newMono = Instantiate(mono[rndmono], transform.position, transform.rotation);
+                }
+                soundManager.PlaySe(clip);
+                Destroy(this.gameObject);
+                only = false;
             }
-            Destroy(this.gameObject);
         }
     }
 }

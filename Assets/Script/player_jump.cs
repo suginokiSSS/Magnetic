@@ -11,12 +11,19 @@ public class player_jump : MonoBehaviour
     //着地状態を管理
     private bool _isGrounded;
 
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip;
+
     void Start()
     {
         //Rigidbodyコンポーネントを取得
         _rigidbody = GetComponent<Rigidbody>();
         //最初は着地していない状態
         _isGrounded = false;
+
+        GameObject obj = GameObject.Find("SoundManager");
+        soundManager = obj.GetComponent<SoundManager>();
     }
 
     void Update()
@@ -36,6 +43,8 @@ public class player_jump : MonoBehaviour
                 _rigidbody.velocity = jump_velocity;
                 //地面から離れるので着地状態を書き換え
                 _isGrounded = false;
+
+                soundManager.PlaySe(clip);
             }
         }
     }

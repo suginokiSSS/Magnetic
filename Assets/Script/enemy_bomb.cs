@@ -16,8 +16,6 @@ public class enemy_bomb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
         if(enemyscript.isStunned == true)
         {
             Invoke("Bomb", 1.0f);

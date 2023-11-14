@@ -19,6 +19,11 @@ public class enemy_generator : MonoBehaviour
     public float interval = 5f;
     //経過時間
     private float time = 0f;
+
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +31,9 @@ public class enemy_generator : MonoBehaviour
         {
             eventenemy = true;
         }
+
+        GameObject obj = GameObject.Find("SoundManager");
+        soundManager = obj.GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -46,7 +54,9 @@ public class enemy_generator : MonoBehaviour
             //経過時間を初期化して再度時間計測を始める
             time = 0f;
 
-            if(onlyone == true)
+            soundManager.PlaySe(clip);
+
+            if (onlyone == true)
             {
                 eventenemy = true;
             }

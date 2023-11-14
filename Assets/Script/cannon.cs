@@ -23,10 +23,20 @@ public class cannon : MonoBehaviour
 
     public GameObject[] mono;
 
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip_fire;
+    [SerializeField]
+    AudioClip clip_down;
+    [SerializeField]
+    AudioClip clip_damage;
+
     private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         timer = fireInterval;
+        GameObject obj = GameObject.Find("SoundManager");
+        soundManager = obj.GetComponent<SoundManager>();
     }
 
     private void FixedUpdate()
@@ -75,16 +85,19 @@ public class cannon : MonoBehaviour
         Vector3 shootDirection = (player.transform.position - bulletSpawnPoint.position).normalized;
         bullet.GetComponent<Rigidbody>().velocity = shootDirection * bulletSpeed;
 
+        soundManager.PlaySe(clip_fire);
+
         // ñCíeÇîjâÛÇ∑ÇÈ
         Destroy(bullet, 2.0f);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("catch"))
         {
             fire = false;
             timer = fireInterval;
+            soundManager.PlaySe(clip_down);
             GenerateFireEffect();
         }
 
@@ -96,6 +109,7 @@ public class cannon : MonoBehaviour
                 int rndmono = Random.Range(0, 3);
                 GameObject newMono = Instantiate(mono[rndmono], transform.position, transform.rotation);
             }
+            soundManager.PlaySe(clip_damage);
             Destroy(this.gameObject);
         }
     }
@@ -107,7 +121,6 @@ public class cannon : MonoBehaviour
         GameObject effect = Instantiate(fireEffect) as GameObject;
         //ÉGÉtÉFÉNÉgÇ™î≠ê∂Ç∑ÇÈèÍèäÇåàíËÇ∑ÇÈ
         effect.transform.position = gameObject.transform.position;
-
         Destroy(effect.gameObject, 3.0f);
     }
 

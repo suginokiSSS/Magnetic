@@ -48,3 +48,4 @@ MonoBehaviour:
   enemyPrefab: {fileID: 8476400960033321762, guid: 0850f1d095c2dc745ad57f74efea4d89, type: 3}
   target: {fileID: 0}
   interval: 5
+  clip: {fileID: 8300000, guid: 6e3c6bea535a5e9498836a868e5f9630, type: 3}

@@ -266,6 +266,7 @@ MonoBehaviour:
   stopDistance: 0
   moveDistance: 20
   isStunned: 0
+  stunDuration: 4
   audiostunned: {fileID: 8300000, guid: 605ee4f6542fcac4b91ba3a2b2adf59a, type: 3}
 --- !u!114 &5599312339222896389
 MonoBehaviour:
@@ -283,4 +284,4 @@ MonoBehaviour:
   - {fileID: 7960678746269240063, guid: 311266b45e2c6b74d8389a3abefd2eab, type: 3}
   - {fileID: 8971789976125377283, guid: 97414091941273a42afc8c7aab676a52, type: 3}
   - {fileID: 2479557798086506746, guid: a179498c7218f024f92465c10c41f166, type: 3}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 121afd8292faf4149a542410f04e65ab, type: 3}

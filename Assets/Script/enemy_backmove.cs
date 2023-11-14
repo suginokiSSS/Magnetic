@@ -18,7 +18,7 @@ public class enemy_backmove : MonoBehaviour
     private bool fire = true;
 
     [HideInInspector] public bool isStunned = false;  // “G‚ªUŒ‚‚ğó‚¯‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
-    private float stunDuration = 3f;  // UŒ‚‚ğó‚¯‚Ä’â~‚·‚éŠÔ‚Ì’·‚³
+    public float stunDuration = 3f;  // UŒ‚‚ğó‚¯‚Ä’â~‚·‚éŠÔ‚Ì’·‚³
     private float stunTimer = 0f;  // UŒ‚‚ğó‚¯‚ÄŒo‰ß‚µ‚½ŠÔ
     private float timer; // ƒ^ƒCƒ}[
 

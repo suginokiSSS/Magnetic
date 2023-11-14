@@ -9,6 +9,9 @@ TagManager:
   - Enemy
   - fly
   - SoundManager
+  - wall
+  - stop
+  - onswitch
   layers:
   - Default
   - TransparentFX
@@ -16,9 +19,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - mono
+  - wall
+  - Player
   - 
   - 
   - 

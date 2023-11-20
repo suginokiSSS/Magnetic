@@ -18,7 +18,8 @@ GameObject:
   - component: {fileID: 1725105922}
   - component: {fileID: 1725105923}
   - component: {fileID: 1725105915}
-  m_Layer: 0
+  - component: {fileID: 1725105907}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -148,8 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightRotationValue: 0
   leftRotationValue: 0
-  autoRotation: 0
-  rotateY: 450
+  Maxrotate: 0
+  autoRotation: 1
 --- !u!114 &1725105922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,11 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62cdf25d371e81940b0476944b2ff1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 40
-  grabDistance: 2
-  randomAngle: 20
+  throwForce: 50
+  grabDistance: 0.7
+  randomAngle: 15
   Checkthrow: 0
-  bullet1: {fileID: 7261089469757631616, guid: 461b57c3d37d1da42bc371d53081ac31, type: 3}
   clip_catch: {fileID: 8300000, guid: 8b39d525a8b3b1b4b8364e541e712f23, type: 3}
   clip_throw: {fileID: 8300000, guid: e33267ea0cebe87468a6b82e1b142f55, type: 3}
 --- !u!136 &1725105923
@@ -197,6 +197,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _velocity: 6
   clip: {fileID: 8300000, guid: a589a15c8dc94f943913a0b19852da63, type: 3}
+--- !u!114 &1725105907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7002758546200047780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff86cc8c1fc40e241b67a4f55f400473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startpoint: {fileID: 0}
 --- !u!1001 &8687531990530213817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,6 +217,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7002758546200047784}
     m_Modifications:
+    - target: {fileID: -9183085667227862328, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -9030124401459419753, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -264,6 +285,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: magu_motion_2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663101726663239508, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3808149055157210296, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718551170233233185, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182320217418860803, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dcdba765403deb4c91d14fb1d5bf384, type: 3}
 --- !u!1 &8381543607632952040 stripped
@@ -319,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 3
   breakEffect: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  clip_damage: {fileID: 8300000, guid: 591cc3582746eef4a9ad83ac356abe84, type: 3}
 --- !u!114 &1148234041
 MonoBehaviour:
   m_ObjectHideFlags: 0

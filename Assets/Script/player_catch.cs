@@ -106,7 +106,7 @@ public class player_catch : MonoBehaviour
             }
         }
 
-        if(playerrotate.autoRotation == false)
+        if(playerrotate.autoRotation == false || Input.GetKey(KeyCode.O))
         {
             for (int i = 0; i < Checkthrow; i++)
             {
@@ -136,13 +136,12 @@ public class player_catch : MonoBehaviour
                     Quaternion randomRotation = Quaternion.Euler(randomPitch, randomYaw, 0f);
 
                     objectToThrow[i].GetComponent<Rigidbody>().isKinematic = false;
-                    GameObject newMono = Instantiate(objectToThrow[i].gameObject, objectToThrow[i].position, objectToThrow[i].rotation);
+                    objectToThrow[i].gameObject.transform.parent = null;
                     Vector3 throwDirection = transform.forward;
                     throwDirection.y = 0f;
-                    newMono.tag = "fly";
-                    newMono.GetComponent<Rigidbody>().AddForce(throwDirection * throwForce, ForceMode.Impulse);
-                    Destroy(objectToThrow[i].gameObject);
-                    Destroy(newMono.gameObject, 1f);
+                    objectToThrow[i].tag = "fly";
+                    objectToThrow[i].GetComponent<Rigidbody>().AddForce(throwDirection * throwForce, ForceMode.Impulse);
+                    Destroy(objectToThrow[i].gameObject, 1f);
                 }
                 for (int i = Checkthrow; i > 0; i--)
                 {

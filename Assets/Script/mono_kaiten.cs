@@ -5,9 +5,9 @@ using UnityEngine;
 public class mono_kaiten : MonoBehaviour
 {
     private float nowYPosi;
-    private float bound = 3f;
     private float xmove;
     private float zmove;
+    private float bound = 3f;
     private bool once = false;
 
     public GameObject maguEffect;
@@ -24,15 +24,14 @@ public class mono_kaiten : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (bound > 0)
         {
             bound -= 0.2f;
             transform.position = new Vector3(this.transform.position.x + xmove, nowYPosi + Mathf.PingPong(Time.time, bound), this.transform.position.z + zmove);
         }
 
-        //transform.Rotate(new Vector3(0, 30f, 0) * Time.deltaTime);
-
-        if(once == false && this.tag == "catch")
+        if (once == false && this.tag == "catch")
         {
             //エフェクトを生成する
             GameObject effect = Instantiate(maguEffect) as GameObject;

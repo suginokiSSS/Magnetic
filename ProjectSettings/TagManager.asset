@@ -12,6 +12,8 @@ TagManager:
   - wall
   - stop
   - onswitch
+  - Fall
+  - RetryPoint
   layers:
   - Default
   - TransparentFX

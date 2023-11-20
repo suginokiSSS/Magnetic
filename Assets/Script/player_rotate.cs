@@ -86,7 +86,7 @@ public class player_rotate : MonoBehaviour
             autoRotation = false;
         }
 
-        if (Input.GetKey("joystick button 0") || Input.GetKey(KeyCode.K))
+        if (Input.GetKey("joystick button 0") || Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.O))
         {
             Maxrotate = -100;
             autoRotation = false;

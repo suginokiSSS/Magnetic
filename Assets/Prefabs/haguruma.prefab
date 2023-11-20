@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7960678746269240062}
   - component: {fileID: 7960678746269240050}
   - component: {fileID: 1456145624194003690}
+  - component: {fileID: 9011822386486179015}
   m_Layer: 6
   m_Name: haguruma
   m_TagString: Untagged
@@ -129,6 +130,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maguEffect: {fileID: 3376652197984755746, guid: 2714b6665fa30a04ba76977259ab2ab6, type: 3}
+--- !u!114 &9011822386486179015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960678746269240063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5ca678b75ec2349b44520fb316d18d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localGravity: {x: 0, y: -30, z: 0}
 --- !u!1001 &6298068308940692540
 PrefabInstance:
   m_ObjectHideFlags: 0

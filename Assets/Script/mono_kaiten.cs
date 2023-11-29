@@ -8,24 +8,24 @@ public class mono_kaiten : MonoBehaviour
     private float xmove;
     private float zmove;
     private float bound = 3f;
-    private bool once = false;
+    public bool once = false;
 
     public GameObject maguEffect;
 
     // Start is called before the first frame update
     void Start()
     {
-        xmove = Random.Range(-0.1f, 0.1f);
-        zmove = Random.Range(-0.1f, 0.1f);
+        xmove = Random.Range(-0.2f, 0.2f);
+        zmove = Random.Range(-0.2f, 0.2f);
         Invoke("ChangeTag", 1f);
         nowYPosi = this.transform.position.y;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
 
-        if (bound > 0)
+        if (bound > 0 && once == false)
         {
             bound -= 0.2f;
             transform.position = new Vector3(this.transform.position.x + xmove, nowYPosi + Mathf.PingPong(Time.time, bound), this.transform.position.z + zmove);
@@ -53,7 +53,13 @@ public class mono_kaiten : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
+        }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("wall"))
+        {
             if (this.tag == "catch")
             {
                 this.tag = "stop";

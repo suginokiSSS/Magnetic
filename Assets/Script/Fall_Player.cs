@@ -21,7 +21,6 @@ public class Fall_Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Fall")
         {
-            this.gameObject.SetActive(false);
             Invoke("Retry", 0.3f);
         }
 
@@ -35,7 +34,5 @@ public class Fall_Player : MonoBehaviour
     void Retry()
     {
         this.transform.position = startpoint.transform.position;
-
-        this.gameObject.SetActive(true);
     }
 }

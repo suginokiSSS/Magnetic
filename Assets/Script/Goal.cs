@@ -26,7 +26,7 @@ public class Goal : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             soundManager.PlaySe(clip_goal);
-            Invoke("ChangeScene", 1.5f);
+            Invoke("ChangeScene", 0.3f);
         }
     }
 

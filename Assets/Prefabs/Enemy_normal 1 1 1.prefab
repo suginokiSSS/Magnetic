@@ -76,11 +76,12 @@ MonoBehaviour:
   rb: {fileID: 8476400960033321768}
   moveSpeed: 5
   rotationSpeed: 6
-  knockbackForce: 22
+  knockbackForce: 10
   stopDistance: 0
   moveDistance: 40
   isStunned: 0
   canmove: 0
+  stunDuration: 2
   clip: {fileID: 8300000, guid: 605ee4f6542fcac4b91ba3a2b2adf59a, type: 3}
 --- !u!114 &2716729453904498750
 MonoBehaviour:
@@ -110,9 +111,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.3902842
-  m_Height: 1.7173138
+  m_Height: 1.3972411
   m_Direction: 1
-  m_Center: {x: 0, y: 0.72361994, z: -0.23045385}
+  m_Center: {x: 0, y: 0.75272274, z: -0.23045385}
 --- !u!1001 &2728533834614129201
 PrefabInstance:
   m_ObjectHideFlags: 0

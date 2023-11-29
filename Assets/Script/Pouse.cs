@@ -15,12 +15,15 @@ public class Pouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("p") && action == true)
+        if (action == true)
         {
-            //　ポーズUIのアクティブ、非アクティブを切り替え
-            pauseUI.SetActive(!pauseUI.activeSelf);
+            if (Input.GetKeyDown("p") || Input.GetKeyDown("joystick button 7"))
+            {
+                //　ポーズUIのアクティブ、非アクティブを切り替え
+                pauseUI.SetActive(!pauseUI.activeSelf);
 
-            mainUI.SetActive(!mainUI.activeSelf); 
+                mainUI.SetActive(!mainUI.activeSelf);
+            }
         }
 
         //　ポーズUIが表示されてる時は停止
@@ -43,6 +46,6 @@ public class Pouse : MonoBehaviour
             pauseUI.SetActive(!pauseUI.activeSelf);
 
             mainUI.SetActive(!mainUI.activeSelf);
-        }
+        }       
     }
 }

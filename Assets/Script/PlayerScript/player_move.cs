@@ -5,7 +5,6 @@ using UnityEngine;
 public class player_move : MonoBehaviour
 {
     public float speed = 5f; //プレイヤーの動くスピード
-    private float originspeed;
     public float jumpForce = 10f; //ジャンプの力
 
     private Vector3 Player_pos; //プレイヤーのポジション
@@ -14,30 +13,15 @@ public class player_move : MonoBehaviour
     private Rigidbody rigd;
     private Animator animator;
 
-    Open_up openscript;
-
     void Start()
     {
-        originspeed = speed;
         Player_pos = GetComponent<Transform>().position; //最初の時点でのプレイヤーのポジションを取得
         rigd = GetComponent<Rigidbody>(); //プレイヤーのRigidbodyを取得
         animator = GetComponent<Animator>();
-
-        GameObject obj = GameObject.Find("Door");
-        openscript = obj.GetComponent<Open_up>();
     }
 
     void FixedUpdate()
     {
-        if (openscript.move == true) 
-        {
-            speed = 0;
-        }
-        else
-        {
-            speed = originspeed;
-        }
-
         x = Input.GetAxis("Horizontal"); //x方向のInputの値を取得
         z = Input.GetAxis("Vertical"); //z方向のInputの値を取得
 

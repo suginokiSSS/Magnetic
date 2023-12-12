@@ -882,6 +882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetRotation: 90
   rotationSpeed: 200
+  dontMove: 0
   clip: {fileID: 8300000, guid: d4c5811ecdbb0f44db8590de1bbb3a9b, type: 3}
 --- !u!54 &1837491409938084343
 Rigidbody:

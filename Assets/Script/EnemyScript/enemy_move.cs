@@ -22,6 +22,8 @@ public class enemy_move : MonoBehaviour
     [SerializeField]
     AudioClip clip;
 
+    player_move playerscript;
+
     private void Start()
     {     
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -29,11 +31,14 @@ public class enemy_move : MonoBehaviour
 
         GameObject obj = GameObject.Find("SoundManager");
         soundManager = obj.GetComponent<SoundManager>();
+
+        obj = GameObject.Find("Player");
+        playerscript = obj.GetComponent<player_move>();
     }
 
     private void FixedUpdate()
     {
-        if (target == null)
+        if (target == null || playerscript.speed == 0f)
         {
             // プレイヤーがいない場合は処理を終了
             return;

@@ -10,10 +10,16 @@ public class Open_up : MonoBehaviour
     private float time = 0f;
 
     public bool move = false;
+
+    private float originspeed = 0f;
+    player_move playerscript;
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject obj = GameObject.Find("Player");
+        playerscript = obj.GetComponent<player_move>();
+
+        originspeed = playerscript.speed;
     }
 
     void Update()
@@ -29,15 +35,17 @@ public class Open_up : MonoBehaviour
                 // Œ»Ý‚ÌˆÊ’u‚©‚ç–Ú•WˆÊ’u‚ÉŒü‚©‚Á‚ÄˆÚ“®
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition.position, step);
             }
-        }
 
-        if(time >= 0.1f && time < 7f)
-        {
-            move = true;
-        }
-        else
-        {
-            move = false;
+            if (time >= 0.1f && time < 7f)
+            {
+                playerscript.speed = 0f;
+                move = true;
+            }
+            else
+            {
+                playerscript.speed = originspeed;
+                move = false;
+            }
         }
     }
 }

@@ -59,8 +59,6 @@ public class Switch : MonoBehaviour
     {
         once = true;
 
-        Time.timeScale = 0f;
-
         target.tag = "onswitch";
 
         Invoke("MoveCamera", 1f);
@@ -79,12 +77,5 @@ public class Switch : MonoBehaviour
     {
         // Œ³‚Ìpriority‚É–ß‚·
         virtualCamera.Priority = defaultPriority;
-
-        Invoke("MainTime", 4f);
-    }
-
-    void MainTime()
-    {
-        Time.timeScale = 1f;
-    }    
+    }   
 }

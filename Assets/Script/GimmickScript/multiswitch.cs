@@ -26,13 +26,11 @@ public class multiswitch : MonoBehaviour
         if(count >= isswitch.Length)
         {
             GetComponent<Renderer>().material.color = Color.green;
+            this.tag = "onswitch";
             count = 0;
         }
-        else
-        {
-            count = 0;
-            GetComponent<Renderer>().material.color = Color.yellow;
-        }
+
+        count = 0;
 
         for (int i = 0; i < isswitch.Length; i++)
         {

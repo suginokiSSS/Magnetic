@@ -35,7 +35,7 @@ public class BarMove : MonoBehaviour
         if (targetplus == true)
         {
             // Õ“Ë‚µ‚Ä‚¢‚È‚¢ê‡‚Í–Ú•W‚Ì‰ñ“]Šp“x‚É“’B‚·‚é‚Ü‚Å‰ñ“]‚³‚¹‚é
-            if (this.tag == "onswitch" && currentRotation < targetRotation)
+            if (this.tag == "onswitch" && currentRotation <= targetRotation)
             {
                 float rotationAmount = rotationSpeed * Time.deltaTime;
                 transform.Rotate(Vector3.up, rotationAmount);
@@ -45,7 +45,7 @@ public class BarMove : MonoBehaviour
         else
         {
             // Õ“Ë‚µ‚Ä‚¢‚È‚¢ê‡‚Í–Ú•W‚Ì‰ñ“]Šp“x‚É“’B‚·‚é‚Ü‚Å‰ñ“]‚³‚¹‚é
-            if (this.tag == "onswitch" && currentRotation > targetRotation)
+            if (this.tag == "onswitch" && currentRotation >= targetRotation)
             {
                 float rotationAmount = rotationSpeed * Time.deltaTime;
                 transform.Rotate(Vector3.up, rotationAmount);

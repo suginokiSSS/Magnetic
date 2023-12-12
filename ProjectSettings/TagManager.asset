@@ -15,6 +15,7 @@ TagManager:
   - Fall
   - RetryPoint
   - Floor
+  - tocatch
   layers:
   - Default
   - TransparentFX

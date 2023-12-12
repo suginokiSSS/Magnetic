@@ -8,9 +8,8 @@ public class mono_kaiten : MonoBehaviour
     private float xmove;
     private float zmove;
     private float bound = 3f;
+    private float time = 0f;
     public bool once = false;
-
-    public GameObject maguEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -24,19 +23,31 @@ public class mono_kaiten : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(this.tag == "catch")
+        {
+            time += Time.deltaTime;
+        }
 
-        if (bound > 0 && once == false)
+        if (bound > 0)
         {
             bound -= 0.2f;
             transform.position = new Vector3(this.transform.position.x + xmove, nowYPosi + Mathf.PingPong(Time.time, bound), this.transform.position.z + zmove);
         }
 
-        if (once == false && this.tag == "catch")
+        if(this.tag == "fly")
         {
-            //エフェクトを生成する
-            GameObject effect = Instantiate(maguEffect) as GameObject;
-            //エフェクトが発生する場所を決定する
-            effect.transform.position = gameObject.transform.position;
+            if(once == false)
+            {
+                time = 0f;
+                once = true;
+            }
+
+            time += Time.deltaTime;
+
+            if(time > 2f)
+            {
+                this.tag = "throw";
+            }
         }
     }
 
@@ -45,24 +56,14 @@ public class mono_kaiten : MonoBehaviour
         this.tag = "throw";
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("wall"))
-        {
-            if(this.tag == "fly")
-            {
-                Destroy(this.gameObject);
-            }
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("wall"))
         {
-            if (this.tag == "catch")
+            if (this.tag == "catch" && time >= 2f)
             {
                 this.tag = "stop";
+                time = 0f;
             }
         }
     }

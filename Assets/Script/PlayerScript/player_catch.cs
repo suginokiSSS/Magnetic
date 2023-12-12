@@ -10,6 +10,8 @@ public class player_catch : MonoBehaviour
 
     public float randomAngle = 45f;
 
+    public bool Deathmono = true;
+
     [HideInInspector] public Rigidbody[] objectToThrow;
 
     [HideInInspector] public int Checkthrow = 0;
@@ -25,25 +27,13 @@ public class player_catch : MonoBehaviour
     void Start()
     {
         playerrotate = GetComponent<player_rotate>();
-        objectToThrow = new Rigidbody[50];
+        objectToThrow = new Rigidbody[200];
         GameObject obj = GameObject.Find("SoundManager");
         soundManager = obj.GetComponent<SoundManager>();
     }
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.E) || Input.GetKey("joystick button 4"))
-        {
-            if (playerrotate.autoRotation == true)
-            {
-                Time.timeScale = 0.5f;
-            }        
-        }
-        else
-        {
-            Time.timeScale = 1.0f;
-        }
-
         if (Checkthrow == 0)
         {
             Collider[] colliders = Physics.OverlapSphere(this.transform.position, grabDistance);
@@ -79,7 +69,6 @@ public class player_catch : MonoBehaviour
                         objectToThrow[Checkthrow].GetComponent<Collider>().isTrigger = true;
                         Checkthrow++;
                         collider.tag = "catch";
-                        playerrotate.Maxrotate += 70f;
                         soundManager.PlaySe(clip_catch);
                         return;
                     }
@@ -107,6 +96,30 @@ public class player_catch : MonoBehaviour
             }
         }
 
+        if (playerrotate.autoRotation == true)
+        {
+            if (Input.GetKey("joystick button 2") || Input.GetKey(KeyCode.K))
+            {              
+                for (int i = 0; i < Checkthrow; i++)
+                {
+                    objectToThrow[i].gameObject.transform.parent = null;
+                    objectToThrow[i].GetComponent<Rigidbody>().isKinematic = false;                 
+                    objectToThrow[i].GetComponent<Collider>().isTrigger = false;
+                    objectToThrow[i].tag = "fly";
+                    objectToThrow[i].AddForce(transform.forward * throwForce, ForceMode.Impulse);
+
+                    if (Deathmono == true)
+                    {
+                        Destroy(objectToThrow[i].gameObject, 1f);
+                    }
+                }
+                Checkthrow = 0;
+                soundManager.PlaySe(clip_throw);
+                playerrotate.autoRotation = false;
+                return;             
+            }
+        }
+
         if(playerrotate.autoRotation == false || Input.GetKey(KeyCode.O) || Input.GetKeyDown("joystick button 3"))
         {
             for (int i = 0; i < Checkthrow; i++)
@@ -117,48 +130,15 @@ public class player_catch : MonoBehaviour
                 newMono.GetComponent<Rigidbody>().AddForce(startthrowDirection * 3, ForceMode.Force);
                 Destroy(objectToThrow[i].gameObject);
             }
-            for (int i = Checkthrow; i > 0; i--)
-            {
-                Checkthrow--;
-                objectToThrow[i] = null;
-            }
+            Checkthrow = 0;
+            playerrotate.autoRotation = false;
             return;
-        }
-
-        if (playerrotate.autoRotation == true && objectToThrow[0] != null)
-        {
-            if (Input.GetKey("joystick button 2") || Input.GetKey(KeyCode.K))
-            {              
-                for (int i = 0; i < Checkthrow; i++)
-                {
-                    float randomYaw = Random.Range(-randomAngle, randomAngle);
-                    float randomPitch = Random.Range(-randomAngle, randomAngle);
-                    Quaternion randomRotation = Quaternion.Euler(randomPitch, randomYaw, 0f);
-
-                    objectToThrow[i].GetComponent<Rigidbody>().isKinematic = false;                 
-                    objectToThrow[i].gameObject.transform.parent = null;
-                    objectToThrow[i].GetComponent<Collider>().isTrigger = false;
-                    Vector3 throwDirection = transform.forward;
-                    throwDirection.y = 0f;
-                    objectToThrow[i].tag = "fly";
-                    objectToThrow[i].GetComponent<Rigidbody>().AddForce(throwDirection * throwForce, ForceMode.Impulse);
-                    Destroy(objectToThrow[i].gameObject, 1f);
-                }
-                for (int i = Checkthrow; i > 0; i--)
-                {
-                    Checkthrow--;
-                    objectToThrow[i] = null;
-                }
-                soundManager.PlaySe(clip_throw);
-                return;             
-            }
-
-        }
+        }       
 
         if (objectToThrow[0])
         {
             Vector3 throwDirection = this.transform.forward;
-            throwDirection.y = 0f;
+            throwDirection.y = 0.1f;
             objectToThrow[0].transform.position = this.transform.position + throwDirection * (objectToThrow[0].transform.localScale.x + 1);
         }
         else

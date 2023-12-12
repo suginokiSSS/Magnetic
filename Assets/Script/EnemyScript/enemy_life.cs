@@ -5,6 +5,8 @@ using UnityEngine;
 public class enemy_life : MonoBehaviour
 {
     public GameObject[] mono;
+    public int monoMax = 3;
+    private int monoCount = 0;
     private float time = 0;
     private bool dead = false;
 
@@ -48,9 +50,10 @@ public class enemy_life : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("catch") && time > 1)
+        if (other.gameObject.CompareTag("catch") && time > 1 && monoCount <= monoMax)
         {
             time = 0;
+            monoCount++;
             int rndmono = Random.Range(0, mono.Length);
             GameObject newMono = Instantiate(mono[rndmono], transform.position, transform.rotation);
 
